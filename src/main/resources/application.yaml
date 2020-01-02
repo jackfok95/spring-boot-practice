@@ -1,0 +1,14 @@
+spring:
+  jpa.hibernate.ddl-auto : none
+  jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  # for schema.sql and data.sql initialization
+#  datasource.initialization-mode : never/ always
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/store
+    username: postgres
+    password: postgres
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
