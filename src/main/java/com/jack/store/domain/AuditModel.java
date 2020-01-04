@@ -15,7 +15,6 @@ import java.time.Instant;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Data
-//what is the best json ignore
 public abstract class AuditModel<T> extends BaseModel<T>{
 
     @Column(name = "created_at", nullable = false, updatable = false)
