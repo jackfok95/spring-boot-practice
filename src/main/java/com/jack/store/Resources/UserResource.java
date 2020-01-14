@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -25,5 +26,14 @@ public class UserResource {
     public User create(@RequestBody User user){
         return userRepository.save(user);
     }
+
+    //make it localdatetime
+    @PostMapping("/date")
+    @Transactional
+    public User setDate(@RequestParam LocalDate date){
+        return userRepository.findById(1L).get().setDateOfBirth(date);
+    }
+
+
 
 }

@@ -1,6 +1,7 @@
 package com.jack.store.domain;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -15,6 +16,7 @@ import java.time.Instant;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Data
+@Accessors(chain = true)
 public abstract class AuditModel<T> extends BaseModel<T>{
 
     @Column(name = "created_at", nullable = false, updatable = false)

@@ -3,6 +3,7 @@ package com.jack.store.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Entity
 @Table(name = "`user`")
+@Accessors(chain = true)
 public class User extends AuditModel<Long>{
 
     @Id

@@ -3,6 +3,7 @@ package com.jack.store.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Objects;
 @Table(name = "category")
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class Category extends BaseModel<Long> {
 
     @Id

@@ -25,7 +25,7 @@ public abstract class BaseModel<T> implements Serializable {
 
     public abstract T getId();
 
-    public abstract void setId(T id);
+    public abstract BaseModel setId(T id);
 
 
 }

@@ -3,6 +3,7 @@ package com.jack.store.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -14,6 +15,7 @@ import java.util.Objects;
 @Table(name = "product")
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class Product extends AuditModel<Long>{
 
     @Id
