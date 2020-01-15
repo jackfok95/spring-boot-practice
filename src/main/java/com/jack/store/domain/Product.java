@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Objects;
 
 @Data
@@ -41,6 +42,8 @@ public class Product extends AuditModel<Long>{
     private BigDecimal price;
 
     private Boolean isSoldOut;
+
+    private Instant bestBefore;
 
     @Override
     public boolean equals(Object o) {

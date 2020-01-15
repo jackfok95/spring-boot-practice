@@ -1,6 +1,7 @@
 package com.jack.store.Resources;
 
 import com.jack.store.domain.User;
+import com.jack.store.repository.ProductRepository;
 import com.jack.store.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,9 @@ public class UserResource {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @GetMapping()
     public List<User> getAllUser(){
         return userRepository.findAll();
@@ -27,7 +31,6 @@ public class UserResource {
         return userRepository.save(user);
     }
 
-    //make it localdatetime
     @PostMapping("/date")
     @Transactional
     public User setDate(@RequestParam LocalDate date){
