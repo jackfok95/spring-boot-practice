@@ -1,42 +1,21 @@
 package com.jack.store.Resources;
 
 import com.jack.store.domain.User;
-import com.jack.store.repository.ProductRepository;
-import com.jack.store.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import com.jack.store.dto.UserDto;
+import com.jack.store.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserResource {
+public class UserResource extends AbstractResource<User, UserDto, Long>{
 
-    @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    @Autowired
-    private ProductRepository productRepository;
+    public UserResource(UserService userService){
 
-    @GetMapping()
-    public List<User> getAllUser(){
-        return userRepository.findAll();
+        super(userService);
+        this.userService = userService;
     }
-
-    @PostMapping()
-    @Transactional
-    public User create(@RequestBody User user){
-        return userRepository.save(user);
-    }
-
-    @PostMapping("/date")
-    @Transactional
-    public User setDate(@RequestParam LocalDate date){
-        return userRepository.findById(1L).get().setDateOfBirth(date);
-    }
-
-
 
 }

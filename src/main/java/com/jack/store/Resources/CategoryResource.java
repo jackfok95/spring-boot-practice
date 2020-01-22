@@ -1,16 +1,21 @@
 package com.jack.store.Resources;
 
-import com.jack.store.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jack.store.domain.Category;
+import com.jack.store.dto.CategoryDto;
+import com.jack.store.service.CategoryService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/category")
-public class CategoryResource {
+@RequestMapping("/api/category")
+public class CategoryResource extends AbstractResource<Category, CategoryDto, Long>{
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
+
+    public CategoryResource(CategoryService categoryService){
+        super(categoryService);
+        this.categoryService = categoryService;
+    }
 
 
 }
