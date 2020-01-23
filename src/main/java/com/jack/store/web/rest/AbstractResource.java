@@ -1,4 +1,4 @@
-package com.jack.store.Resources;
+package com.jack.store.web.rest;
 
 import com.jack.store.domain.BaseModel;
 import com.jack.store.dto.DtoInterface;
@@ -50,6 +50,13 @@ public abstract class AbstractResource<
         service.delete(id);
     }
 
-//TODO update function
+    @PutMapping()
+    public DTO update(@Valid @RequestBody DTO dto){
+        //TODO create exception
+//        if(dto.getId() == null){
+//
+//        }
+        return service.update(dto);
+    }
 
 }

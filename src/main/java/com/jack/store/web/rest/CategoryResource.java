@@ -1,4 +1,4 @@
-package com.jack.store.Resources;
+package com.jack.store.web.rest;
 
 import com.jack.store.domain.Category;
 import com.jack.store.dto.CategoryDto;

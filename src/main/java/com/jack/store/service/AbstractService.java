@@ -8,11 +8,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 @Transactional
-public abstract class AbstractService<E extends BaseModel, D extends DtoInterface, ID> {
+public abstract class AbstractService<E extends BaseModel, D extends DtoInterface<ID>, ID extends Serializable> {
 
     private final BaseRepository<E, ID> repository;
 
@@ -39,7 +41,7 @@ public abstract class AbstractService<E extends BaseModel, D extends DtoInterfac
     }
 
     public D create(D dto){
-
+        //TODO throw
         E entity = mapper.toEntity(dto);
         entity = repository.save(entity);
 
@@ -51,9 +53,13 @@ public abstract class AbstractService<E extends BaseModel, D extends DtoInterfac
         repository.deleteById(id);
     }
 
-//TODO update function
-//    public D update(D dto){
-//
-//    }
+    public D update(D dto){
+
+        E entity = repository.findById(dto.getId()).orElseThrow(EntityNotFoundException::new);
+        entity = mapper.toEntity(dto, entity);
+        entity = repository.save(entity);
+
+        return mapper.toDto(entity);
+    }
 
 }
