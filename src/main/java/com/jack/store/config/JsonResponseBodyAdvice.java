@@ -1,6 +1,9 @@
 package com.jack.store.config;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jack.store.utils.JsonResponseWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -17,10 +20,17 @@ public class JsonResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         return methodParameter.getDeclaringClass().isAnnotationPresent(RestController.class);
     }
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         if (o instanceof String) {
-            //TODO
+            try {
+                return objectMapper.writeValueAsString(new JsonResponseWrapper(o));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         }
         return new JsonResponseWrapper(o);
     }
