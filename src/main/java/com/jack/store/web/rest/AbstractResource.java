@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.Serializable;
 
+@RestController
 public abstract class AbstractResource<
         E extends BaseModel<ID>,
         DTO extends DtoInterface<ID>,

@@ -18,4 +18,9 @@ public class UserResource extends AbstractResource<User, UserDto, Long>{
         this.userService = userService;
     }
 
+    @GetMapping("/test")
+    public String gettest(){
+        return "abcdefg";
+    }
+
 }
