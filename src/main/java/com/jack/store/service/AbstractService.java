@@ -41,7 +41,9 @@ public abstract class AbstractService<E extends BaseModel, D extends DtoInterfac
     }
 
     public D create(D dto){
-        //TODO throw
+        if (dto.getId() != null){
+            throw new IllegalArgumentException("id should be none");
+        }
         E entity = mapper.toEntity(dto);
         entity = repository.save(entity);
 
@@ -55,6 +57,9 @@ public abstract class AbstractService<E extends BaseModel, D extends DtoInterfac
 
     public D update(D dto){
 
+        if (dto.getId() == null){
+            throw new IllegalArgumentException("id is missing");
+        }
         E entity = repository.findById(dto.getId()).orElseThrow(EntityNotFoundException::new);
         entity = mapper.toEntity(dto, entity);
         entity = repository.save(entity);

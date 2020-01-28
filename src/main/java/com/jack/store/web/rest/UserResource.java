@@ -5,7 +5,6 @@ import com.jack.store.dto.UserDto;
 import com.jack.store.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/api/users")
 public class UserResource extends AbstractResource<User, UserDto, Long>{
@@ -16,11 +15,6 @@ public class UserResource extends AbstractResource<User, UserDto, Long>{
 
         super(userService);
         this.userService = userService;
-    }
-
-    @GetMapping("/test")
-    public String gettest(){
-        return "abcdefg";
     }
 
 }
