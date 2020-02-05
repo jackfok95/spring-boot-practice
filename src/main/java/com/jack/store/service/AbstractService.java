@@ -4,6 +4,7 @@ import com.jack.store.domain.BaseModel;
 import com.jack.store.dto.DtoInterface;
 import com.jack.store.mapper.EntityMapper;
 import com.jack.store.repository.BaseRepository;
+import com.jack.store.service.queryService.QueryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional
-public abstract class AbstractService<E extends BaseModel, D extends DtoInterface<ID>, ID extends Serializable> {
+public abstract class AbstractService<E extends BaseModel, D extends DtoInterface<ID>, ID extends Serializable> extends QueryService<E> {
 
     private final BaseRepository<E, ID> repository;
 
