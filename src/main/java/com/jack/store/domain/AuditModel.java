@@ -27,13 +27,13 @@ public abstract class AuditModel<T> extends BaseModel<T>{
     @LastModifiedDate
     private Instant updatedAt;
 
-//    @Column(name = "created_by", nullable = false)
-//    @CreatedBy
-//    private String createdBy;
-//
-//    @Column(name = "updated_by", nullable = false)
-//    @LastModifiedBy
-//    private String updatedBy;
+    @Column(name = "created_by", nullable = false, updatable = false)
+    @CreatedBy
+    private String createdBy;
+
+    @Column(name = "modified_by", nullable = false)
+    @LastModifiedBy
+    private String updatedBy;
 
 
 }

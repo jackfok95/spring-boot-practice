@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -41,6 +42,14 @@ public class User extends AuditModel<Long>{
 
     @OneToMany(mappedBy = "user")
     private List<Product> products;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_authority",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority", referencedColumnName = "name")}
+    )
+    private Set<Authority> authorities;
 
     @Override
     public boolean equals(Object o) {
