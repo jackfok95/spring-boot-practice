@@ -6,6 +6,8 @@ spring:
     properties:
       hibernate.format_sql: true
 
+
+
   # for schema.sql and data.sql initialization
 #  datasource.initialization-mode : never/ always
 

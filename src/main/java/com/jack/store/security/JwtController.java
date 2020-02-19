@@ -3,6 +3,9 @@ package com.jack.store.security;
 import com.jack.store.security.data.LoginInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+//@Slf4j
 @RestController
 @RequestMapping("/authenticate")
 public class JwtController {
@@ -28,6 +32,8 @@ public class JwtController {
 
     @PostMapping
     public JwtToken authenticate(@Valid @RequestBody LoginInfo loginInfo){
+
+//        log.info("Login with username: {}", loginInfo.getUsername());
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginInfo.getUsername(), loginInfo.getPassword()));
 
