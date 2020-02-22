@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Aspect
-@Profile("abc")
+@Profile("dev")
 @Component
 public class LoggingAspect {
 
@@ -79,6 +79,7 @@ public class LoggingAspect {
      */
     @Around("applicationPackagePointcut() && springBeanPointcut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+
         if (log.isDebugEnabled()) {
             log.debug("Enter: {}.{}() with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(),
                     joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));
