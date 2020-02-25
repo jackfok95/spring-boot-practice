@@ -4,7 +4,12 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
     properties:
-      hibernate.format_sql: false
+      hibernate:
+        format_sql: false
+        cache:
+          use_second_level_cache: true
+          use_query_cache: false
+          region.factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
 
   # for schema.sql and data.sql initialization
 #  datasource.initialization-mode : never/ always
@@ -18,3 +23,5 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
 
+# Only necessary if more than one provider is present
+  cache.jcache.provider: org.ehcache.jsr107.EhcacheCachingProvider
