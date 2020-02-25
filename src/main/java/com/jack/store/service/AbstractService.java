@@ -5,6 +5,8 @@ import com.jack.store.dto.DtoInterface;
 import com.jack.store.mapper.EntityMapper;
 import com.jack.store.repository.BaseRepository;
 import com.jack.store.service.queryService.QueryService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Transactional
 public abstract class AbstractService<E extends BaseModel, D extends DtoInterface<ID>, ID extends Serializable> extends QueryService<E> {
 
@@ -26,8 +29,10 @@ public abstract class AbstractService<E extends BaseModel, D extends DtoInterfac
         this.mapper = mapper;
     }
 
+    @Cacheable(value="userCache",key="#p0")
     public Optional<D> findById(ID id){
 
+        log.debug("Get to Database");
         return repository.findById(id).map(mapper::toDto);
     }
 

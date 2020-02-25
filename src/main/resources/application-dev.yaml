@@ -6,8 +6,6 @@ spring:
     properties:
       hibernate.format_sql: false
 
-
-
   # for schema.sql and data.sql initialization
 #  datasource.initialization-mode : never/ always
 
@@ -19,3 +17,4 @@ spring:
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
+
