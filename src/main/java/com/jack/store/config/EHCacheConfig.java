@@ -37,6 +37,7 @@ public class EHCacheConfig {
             cm.createCache(com.jack.store.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.jack.store.domain.User.class.getName() + ".products", jcacheConfiguration);
             cm.createCache(com.jack.store.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache("userCache", jcacheConfiguration);
         };
     }
 
