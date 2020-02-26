@@ -1,8 +1,14 @@
 package com.jack.store.config;
 
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
+import org.ehcache.config.builders.CacheEventListenerConfigurationBuilder;
 import org.ehcache.config.builders.ExpiryPolicyBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
+import org.ehcache.event.CacheEvent;
+import org.ehcache.event.CacheEventListener;
+import org.ehcache.event.EventType;
 import org.ehcache.jsr107.Eh107Configuration;
 import org.hibernate.cache.jcache.ConfigSettings;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
@@ -19,6 +25,16 @@ import java.time.Duration;
 @EnableCaching
 public class EHCacheConfig {
 
+    @Slf4j
+    @NoArgsConstructor
+    private static class CacheEventLogger implements CacheEventListener<Object, Object> {
+
+        @Override
+        public void onEvent(CacheEvent<?, ?> cacheEvent) {
+            log.debug("Cache Key: {}, Cache Old Value: {}, Cache New Value: {}", cacheEvent.getKey(), cacheEvent.getOldValue(), cacheEvent.getNewValue());
+        }
+    }
+
     @Bean
     public javax.cache.configuration.Configuration<Object, Object> jcacheConfiguration() {
         long cacheSize = 100;
@@ -28,6 +44,11 @@ public class EHCacheConfig {
                 .newCacheConfigurationBuilder(Object.class, Object.class, ResourcePoolsBuilder
                         .heap(cacheSize))
                 .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(ttl)))
+                .add(
+                        CacheEventListenerConfigurationBuilder
+                                .newEventListenerConfiguration(new EHCacheConfig.CacheEventLogger(), EventType.CREATED, EventType.UPDATED, EventType.EXPIRED)
+                                .unordered().asynchronous()
+                )
                 .build();
 
         return Eh107Configuration.fromEhcacheCacheConfiguration(cacheConfiguration);
@@ -37,6 +58,7 @@ public class EHCacheConfig {
     public HibernatePropertiesCustomizer hibernatePropertiesCustomizer(javax.cache.CacheManager cacheManager) {
         return hibernateProperties -> {
             hibernateProperties.put(ConfigSettings.CACHE_MANAGER, cacheManager);
+            hibernateProperties.put(ConfigSettings.MISSING_CACHE_STRATEGY, "create");
         };
     }
 
