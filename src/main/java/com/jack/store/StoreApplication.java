@@ -1,5 +1,6 @@
 package com.jack.store;
 
+import com.jack.store.config.DefaultProfileUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -9,7 +10,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 public class StoreApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StoreApplication.class, args);
+
+		SpringApplication app = new SpringApplication(StoreApplication.class);
+		DefaultProfileUtil.addDefaultProfile(app);
+		app.run(args);
 	}
 
 }
