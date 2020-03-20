@@ -1,0 +1,30 @@
+version: '3'
+services:
+    postgresql_database:
+        image: postgres:11.1
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+            - ./docker-postgres/init-sqls:/docker-entrypoint-initdb.d
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=store
+        ports:
+            - 4321:5432
+            
+    spring:
+        build:
+            dockerfile: Dockerfile
+            context: ./
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql_database:5432/store
+            - SPRING_DATASOURCE_USERNAME=postgres
+            - SPRING_DATASOURCE_PASSWORD=postgres
+        depends_on: 
+            - postgresql_database
+        ports:
+            - 8888:8080
+    
+volumes:
+    pgdata:
+        driver: local

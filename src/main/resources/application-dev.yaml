@@ -17,8 +17,8 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/store
     username: postgres
-#    password: qbssystem!
-    password: postgres
+    password: qbssystem!
+#    password: postgres
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
