@@ -5,9 +5,7 @@ import com.jack.store.dto.ProductDto;
 import com.jack.store.security.data.UserAuthority;
 import com.jack.store.service.ProductService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,4 +26,10 @@ public class ProductResource extends AbstractResource<Product, ProductDto, Long>
     public List<ProductDto> findByCategory1(){
         return productService.findByCategory1();
     }
+
+    @PutMapping("/buy")
+    public void buy(){
+        productService.buy();
+    }
+
 }

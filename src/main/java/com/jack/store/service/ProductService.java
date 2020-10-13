@@ -8,6 +8,7 @@ import com.jack.store.mapper.ProductMapper;
 import com.jack.store.repository.ProductRepository;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -33,5 +34,13 @@ public class ProductService extends AbstractService<Product, ProductDto, Long>{
                 criteriaBuilder.equal(root.join(Product_.CATEGORY).get(Category_.ID), 1);
 
         return repository.findAll(specification).stream().map(mapper::toDto).collect(Collectors.toList());
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void buy(){
+//        repository.atomicUpdate();
+        repository.findById(3L).ifPresent(product -> {
+            product.setQty(product.getQty() - 1);
+        });
     }
 }

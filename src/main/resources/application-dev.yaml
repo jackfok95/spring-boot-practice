@@ -15,10 +15,10 @@ spring:
 #  datasource.initialization-mode : never/ always
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/store
+    url: jdbc:postgresql://localhost:4321/store
     username: postgres
-    password: qbssystem!
-#    password: postgres
+#    password: qbssystem!
+    password: postgres
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
