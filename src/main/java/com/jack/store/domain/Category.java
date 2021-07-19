@@ -9,8 +9,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
@@ -22,14 +24,19 @@ import java.util.Objects;
 public class Category extends BaseModel<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "category_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            name = "category_id_seq",
+            sequenceName = "category_id_seq",
+            allocationSize = 50
+    )
     private Long id;
 
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @ManyToMany(mappedBy = "categories", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<Product> products;
+    private Set<Product> products  = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

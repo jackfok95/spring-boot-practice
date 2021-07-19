@@ -9,6 +9,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -23,8 +24,12 @@ import java.util.Set;
 public class User extends AuditModel<Long>{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @GeneratedValue(generator = "user_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            name = "user_id_seq",
+            sequenceName = "user_id_seq",
+            allocationSize = 50
+    )
     private Long id;
 
     private String username;
@@ -43,11 +48,22 @@ public class User extends AuditModel<Long>{
 
     private Boolean enabled;
 
-    @OneToMany(mappedBy = "user")
+    // CascadeType should be used with orphanRemoval
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user") // remove product will delete it
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
-    @ManyToMany
+    public void addProduct(Product p){
+        this.products.add(p);
+        p.setUser(this);
+    }
+
+    public void removeProduct(Product p){
+        this.products.remove(p);
+        p.setUser(null);
+    }
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "user_authority",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},

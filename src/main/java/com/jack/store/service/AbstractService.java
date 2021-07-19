@@ -31,14 +31,13 @@ public abstract class AbstractService<E extends BaseModel, D extends DtoInterfac
 //    @Cacheable(value="userCache",key="#p0")
     public Optional<D> findById(ID id){
 
-        log.debug("Get to Database");
         return repository.findById(id).map(mapper::toDto);
     }
 
-    public List<D> getAll(){
-
-        return mapper.toDto(repository.findAll());
-    }
+//    public List<D> getAll(){
+//
+//        return mapper.toDto(repository.findAll());
+//    }
 
     public Page<D> getAllByPage(Pageable pageable){
 

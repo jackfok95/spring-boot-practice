@@ -47,7 +47,7 @@ public abstract class AbstractResource<
         return service.create(dto);
     }
 
-    @PreAuthorize("hasRole(\"" + UserAuthority.ROLE_ADMIN + "\")")
+//    @PreAuthorize("hasRole(\"" + UserAuthority.ROLE_ADMIN + "\")")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable ID id){

@@ -5,8 +5,8 @@ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
 
-    <include file="sql/001_init.sql" relativeToChangelogFile="true"/>
-    <include file="sql/002_alter_user_category_product.sql" relativeToChangelogFile="true"/>
-    <include file="sql/003_add_product_best_before.sql" relativeToChangelogFile="true"/>
-    <include file="sql/004_add_security_related_table.sql" relativeToChangelogFile="true"/>
+    <include file="sql/001_add_product_category.sql" relativeToChangelogFile="true"/>
+    <include file="sql/002_change_sequence_allocation.sql" relativeToChangelogFile="true"/>
+    <include file="sql/003_add_version_to_product.sql" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>

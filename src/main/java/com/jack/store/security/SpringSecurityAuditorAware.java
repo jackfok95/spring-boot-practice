@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+// to enable @createdBy & @lastModifiedBy
 @Component
 public class SpringSecurityAuditorAware implements AuditorAware<String> {
 

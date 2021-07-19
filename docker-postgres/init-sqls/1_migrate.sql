@@ -101,8 +101,8 @@ CREATE TABLE public.product (
     qty bigint,
     price numeric(8,2),
     is_sold_out boolean DEFAULT false,
-    created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now(),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     created_by text,
     modified_by text,
     best_before timestamp without time zone
@@ -147,8 +147,8 @@ CREATE TABLE public."user" (
     address text,
     nation text,
     enabled boolean DEFAULT true,
-    created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now(),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     created_by text,
     modified_by text
 );
@@ -161,7 +161,6 @@ ALTER TABLE public."user" OWNER TO postgres;
 --
 
 CREATE TABLE public.user_authority (
-    id integer NOT NULL,
     user_id bigint,
     authority text NOT NULL
 );
@@ -169,26 +168,6 @@ CREATE TABLE public.user_authority (
 
 ALTER TABLE public.user_authority OWNER TO postgres;
 
---
--- Name: user_authority_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.user_authority_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.user_authority_id_seq OWNER TO postgres;
-
---
--- Name: user_authority_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.user_authority_id_seq OWNED BY public.user_authority.id;
 
 
 --
@@ -234,12 +213,6 @@ ALTER TABLE ONLY public.product ALTER COLUMN id SET DEFAULT nextval('public.prod
 ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
 
 
---
--- Name: user_authority id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.user_authority ALTER COLUMN id SET DEFAULT nextval('public.user_authority_id_seq'::regclass);
-
 
 --
 -- Data for Name: authority; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -258,18 +231,6 @@ ROLE_USER
 COPY public.category (id, name) FROM stdin;
 1	Toy
 2	Food
-\.
-
-
---
--- Data for Name: databasechangelog; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted, exectype, md5sum, description, comments, tag, liquibase, contexts, labels, deployment_id) FROM stdin;
-raw	includeAll	classpath:db/changelog/sql/003_add_product_best_before.sql	2020-01-22 17:03:43.063862	3	EXECUTED	8:f96683c08f051cd3becdd3e025c93b1e	sql		\N	3.8.2	\N	\N	9683822877
-raw	includeAll	classpath:db/changelog/sql/001_init.sql	2020-01-22 17:03:43.039114	1	EXECUTED	8:0b6fa0096ea8482b3b30cc7e9a4af8a5	sql		\N	3.8.2	\N	\N	9683822877
-raw	includeAll	classpath:db/changelog/sql/004_add_security_related_table.sql	2020-02-25 12:10:21.84542	4	EXECUTED	8:b5a3d84815f90cbde71f35b2817f68e7	sql		\N	3.8.2	\N	\N	2603821720
-raw	includeAll	classpath:db/changelog/sql/002_alter_user_category_product.sql	2020-01-22 17:03:43.059725	2	EXECUTED	8:6fb4165e0b7bb8eb36e9cbf102245e40	sql		\N	3.8.2	\N	\N	9683822877
 \.
 
 
@@ -313,9 +274,9 @@ COPY public."user" (id, username, password, name, email, date_of_birth, address,
 -- Data for Name: user_authority; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.user_authority (id, user_id, authority) FROM stdin;
-1	1	ROLE_ADMIN
-2	7	ROLE_USER
+COPY public.user_authority (user_id, authority) FROM stdin;
+1	ROLE_ADMIN
+7	ROLE_USER
 \.
 
 
@@ -323,28 +284,22 @@ COPY public.user_authority (id, user_id, authority) FROM stdin;
 -- Name: category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.category_id_seq', 1, true);
+SELECT pg_catalog.setval('public.category_id_seq', 10, false);
 
 
 --
 -- Name: product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.product_id_seq', 1, false);
+SELECT pg_catalog.setval('public.product_id_seq', 10, false);
 
-
---
--- Name: user_authority_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.user_authority_id_seq', 1, false);
 
 
 --
 -- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_id_seq', 1, false);
+SELECT pg_catalog.setval('public.user_id_seq', 10, false);
 
 
 --
@@ -378,13 +333,6 @@ ALTER TABLE ONLY public.databasechangeloglock
 ALTER TABLE ONLY public.product
     ADD CONSTRAINT product_pkey PRIMARY KEY (id);
 
-
---
--- Name: user_authority user_authority_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.user_authority
-    ADD CONSTRAINT user_authority_pkey PRIMARY KEY (id);
 
 
 --

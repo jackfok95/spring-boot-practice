@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Set;
 
 @Data
 public class ProductDto implements DtoInterface<Long>{
@@ -12,7 +13,7 @@ public class ProductDto implements DtoInterface<Long>{
 
     private Long userId;
 
-    private Long categoryId;
+    private Set<CategoryDto> categories;
 
     private String name;
 

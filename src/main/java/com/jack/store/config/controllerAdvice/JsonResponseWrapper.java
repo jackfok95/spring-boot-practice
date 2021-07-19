@@ -70,7 +70,7 @@ public class JsonResponseWrapper implements Serializable {
 
         JsonResponseWrapper wrapper = new JsonResponseWrapper();
         JsonResponseWrapper.ErrorResult errorResult = wrapper.new ErrorResult();
-
+        e.printStackTrace();
         return errorResult
                 .setCode(httpStatus.value())
                 .setMessage(e.getMessage())

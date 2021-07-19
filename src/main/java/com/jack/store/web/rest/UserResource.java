@@ -1,12 +1,18 @@
 package com.jack.store.web.rest;
 
 import com.jack.store.domain.User;
+import com.jack.store.dto.ProductDto;
 import com.jack.store.dto.UserDto;
+import com.jack.store.mapper.ProductMapper;
+import com.jack.store.repository.ProductRepository;
+import com.jack.store.repository.UserRepository;
 import com.jack.store.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -25,5 +31,20 @@ public class UserResource extends AbstractResource<User, UserDto, Long>{
     public void registerNewUser(@Valid @RequestBody UserDto dto){
         userService.register(dto);
     }
+
+    @PutMapping("/{userId}/removeProducts")
+    public void removeProducts(@PathVariable Long userId, @RequestBody List<ProductDto> products){
+        userService.removeProducts(userId, products);
+    }
+
+    @Autowired
+    public UserRepository userRepository;
+
+    @Autowired
+    public ProductRepository productRepository;
+
+    @Autowired
+    ProductMapper mapper;
+
 
 }
