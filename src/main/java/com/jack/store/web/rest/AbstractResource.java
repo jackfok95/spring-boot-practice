@@ -2,7 +2,7 @@ package com.jack.store.web.rest;
 
 import com.jack.store.domain.BaseModel;
 import com.jack.store.dto.DtoInterface;
-import com.jack.store.security.data.UserAuthority;
+import com.jack.store.security.UserAuthority;
 import com.jack.store.service.AbstractService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,7 +47,7 @@ public abstract class AbstractResource<
         return service.create(dto);
     }
 
-//    @PreAuthorize("hasRole(\"" + UserAuthority.ROLE_ADMIN + "\")")
+    @PreAuthorize("hasRole('" + UserAuthority.ROLE_ADMIN + "')")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable ID id){

@@ -1,11 +1,8 @@
-package com.jack.store.security;
+package com.jack.store.security.jwt;
 
-import com.jack.store.security.data.LoginInfo;
+import com.jack.store.security.jwt.data.LoginInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

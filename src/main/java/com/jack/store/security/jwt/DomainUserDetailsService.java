@@ -1,4 +1,4 @@
-package com.jack.store.security;
+package com.jack.store.security.jwt;
 
 import com.jack.store.exception.UserNotActivatedException;
 import com.jack.store.repository.UserRepository;

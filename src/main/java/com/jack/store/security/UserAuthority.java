@@ -1,4 +1,4 @@
-package com.jack.store.security.data;
+package com.jack.store.security;
 
 public final class UserAuthority {
 

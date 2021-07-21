@@ -2,3 +2,10 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:4321/store
 
+
+
+project:
+  keycloak-properties-path: D:\IT Projects\spring-boot-practice-files\keycloak-local.properties
+
+server:
+  port: 8888

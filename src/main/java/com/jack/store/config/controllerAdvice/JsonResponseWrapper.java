@@ -39,11 +39,11 @@ public class JsonResponseWrapper implements Serializable {
 
     }
 
-    static SuccessResult success(HttpStatus httpStatus, String message, Object data){
+    public static SuccessResult success(HttpStatus httpStatus, String message, Object data){
         return success(httpStatus, data).setMessage(message);
     }
 
-    static SuccessResult success(HttpStatus httpStatus, Object data){
+    public static SuccessResult success(HttpStatus httpStatus, Object data){
 
         JsonResponseWrapper wrapper = new JsonResponseWrapper();
         JsonResponseWrapper.SuccessResult successResult = wrapper.new SuccessResult();
@@ -54,19 +54,19 @@ public class JsonResponseWrapper implements Serializable {
                 .setData(data);
     }
 
-    static ErrorResult fail(HttpServletResponse response, HttpStatus httpStatus, Throwable e){
+    public static ErrorResult fail(HttpServletResponse response, HttpStatus httpStatus, Throwable e){
 
         response.setStatus(httpStatus.value());
 
         return fail(httpStatus, e);
     }
 
-    static ErrorResult fail(HttpServletResponse response, HttpStatus httpStatus, String message, Throwable e){
+    public static ErrorResult fail(HttpServletResponse response, HttpStatus httpStatus, String message, Throwable e){
 
         return fail(response, httpStatus, e).setMessage(message);
     }
 
-    static ErrorResult fail(HttpStatus httpStatus, Throwable e){
+    public static ErrorResult fail(HttpStatus httpStatus, Throwable e){
 
         JsonResponseWrapper wrapper = new JsonResponseWrapper();
         JsonResponseWrapper.ErrorResult errorResult = wrapper.new ErrorResult();

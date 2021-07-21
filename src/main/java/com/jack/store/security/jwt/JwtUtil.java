@@ -1,4 +1,4 @@
-package com.jack.store.security;
+package com.jack.store.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

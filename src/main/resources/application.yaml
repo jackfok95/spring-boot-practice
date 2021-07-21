@@ -1,8 +1,9 @@
-#spring:
-#  profiles:
-#    active: local
 
 spring:
+
+  profiles:
+    active: docker
+
   jpa:
     hibernate.ddl-auto : none
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -27,3 +28,4 @@ spring:
 
   # Only necessary if more than one provider is present
   cache.jcache.provider: org.ehcache.jsr107.EhcacheCachingProvider
+

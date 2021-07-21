@@ -1,4 +1,4 @@
-package com.jack.store.security.data;
+package com.jack.store.security.jwt.data;
 
 import lombok.Data;
 

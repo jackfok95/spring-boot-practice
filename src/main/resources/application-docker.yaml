@@ -2,3 +2,5 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/store
 
+project:
+  keycloak-properties-path: /extra/keycloak.properties

@@ -1,4 +1,4 @@
-FROM openjdk
+FROM openjdk:8-jdk-alpine
 ENV SPRING_DATASOURCE_URL jdbc:postgresql://postgresdatabase:5432/store
 ENV SPRING_DATASOURCE_USERNAME postgres
 ENV SPRING_DATASOURCE_PASSWORD postgres
